@@ -3,3 +3,6 @@
 
 # Se excluyen los ejecutables de MIPS:
 *.s
+
+# Se excluye el directorio de apuntes:
+./notas/*

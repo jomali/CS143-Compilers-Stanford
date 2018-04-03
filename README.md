@@ -2,7 +2,7 @@
 
 ## Introducción
 
-**Cool**, acrónimo de **Classroom Object-Oriented Language**, es un pequeño lenguaje de programación diseñado para ser utilizado en el curso de pregrado sobre compiladores en la Universidad de Stanford. Aunque es lo suficientemente pequeño como para poder ser implementado a lo largo de un único curso, incluye muchas de las características de otros lenguajes de programación modernos como objetos, tipado estático y manejo automático de memoria. Genera código para el simulador MIPS.
+**Cool**, acrónimo de **Classroom Object-Oriented Language**, es un pequeño lenguaje de programación diseñado para ser utilizado en el [curso de pregrado sobre compiladores](https://lagunita.stanford.edu/courses/Engineering/Compilers/Fall2014/info) en la Universidad de Stanford. Aunque es lo suficientemente pequeño como para poder ser implementado a lo largo de un único curso, incluye muchas de las características de otros lenguajes de programación modernos como objetos, tipado estático y manejo automático de memoria. Genera código para el simulador MIPS.
 
 Más información:
 
@@ -34,14 +34,20 @@ El **análisis léxico** es la primera fase de un compilador. Un analizador léx
 
 ## PA3J: Parsing
 
+El **parsing**, o **análisis sintáctica**, es la segunda fase de un compilador. Un *parser* toma como entrada el producto de un analizador léxico en forma de flujo de *tokens* y analiza el código fuente de un programa para detectar cualquier posible error de escritura. Como salida se produce un árbol de sintaxis abstracto (*abstract syntax tree*, o AST).
+
 &#x1F534; Pendiente.
 
 
 ## PA4J: Análisis semántico
 
+En esta tercera fase de la compilación, se utilizan los árboles de sintaxis abstractos generados en la fase anterior para comprobar si un programa se adecua a la especificación del lenguaje. Si un programa es incorrecto y no se adecua, el analizador semántico lo descartará; si se trata de un programa correcto, el analizador semántico producirá como resultado un AST anotado con cierta información que será utilizada por el generador de código.
+
 &#x1F534; Pendiente.
 
 
 ## PA5J: Generación de código
+
+La generación de código es la última fase del compilador. Toma como entrada los AST anotados generados en las fases anteriores y como resultado produce código ensamblador de MIPS que implementa efectivamente cualquier programa escrito correctamente en Cool.
 
 &#x1F534; Pendiente.
