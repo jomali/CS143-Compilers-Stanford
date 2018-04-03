@@ -1,0 +1,5 @@
+# Se excluye la documentación:
+*.pdf
+
+# Se excluyen los ejecutables de MIPS:
+*.s
