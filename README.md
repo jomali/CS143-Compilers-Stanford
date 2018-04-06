@@ -32,8 +32,8 @@ El **análisis léxico** es la primera fase de un compilador. Un analizador léx
 Más información:
 
 * [JLex: A lexical analyzer generator for Java](https://www.cs.princeton.edu/~appel/modern/java/JLex/current/manual.html)
-* [JLex (un resumen)] (http://pages.cs.wisc.edu/~fischer/cs536.s05/course.hold/html/NOTES/2a.JLEX.html)
-* [Algunas dudas sobre el análisis sintáctico en COOL](https://groups.google.com/forum/#!topic/ucb.class.cs164/vCfBi-kkieg)
+* [JLex - un resumen] (http://pages.cs.wisc.edu/~fischer/cs536.s05/course.hold/html/NOTES/2a.JLEX.html)
+* [Algunas dudas sobre análisis sintáctico en COOL](https://groups.google.com/forum/#!topic/ucb.class.cs164/vCfBi-kkieg)
 
 &#x1F535; Completado parcialmente.
 
