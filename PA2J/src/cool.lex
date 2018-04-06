@@ -52,13 +52,12 @@ import java_cup.runtime.Symbol;
 	 * Añade una cadena de caracteres al StringBuffer.
 	 */
 	private void appendToBuffer(String text) {
-		// FIXME - Comprobar tamaño máximo del string
 		string_buf.append(text);
 	}
 
 	private String getStringFromBuffer() {
-		// FIXME - Comprobar tamaño máximo del string
-		return string_buf.toString();
+		return string_buf.length() <= MAX_STR_CONST
+			? string_buf.toString() : null;
 	}
 
 	/*
