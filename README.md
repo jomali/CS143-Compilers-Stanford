@@ -29,7 +29,13 @@ Además de los programas de ejemplo del propio curso de sobre compiladores de la
 
 El **análisis léxico** es la primera fase de un compilador. Un analizador léxico, también llamado *scanner*, se encarga de dividir el código fuente en una serie de *tokens* y transmitir los datos al *parser* cuando éste lo necesita. Para desarrollar este apartado se utiliza una herramienta generadora de analizadores léxicos **Flex/JLex**. Flex genera, a partir de un fichero de reglas, la implementación en C++ de un autámata finito que reconoce las expresiones regulares espeficadas en el fichero de reglas. JLex hace lo propio para Java.
 
-&#x1F534; Pendiente.
+Más información:
+
+* [JLex: A lexical analyzer generator for Java](https://www.cs.princeton.edu/~appel/modern/java/JLex/current/manual.html)
+* [JLex (un resumen)] (http://pages.cs.wisc.edu/~fischer/cs536.s05/course.hold/html/NOTES/2a.JLEX.html)
+* [Algunas dudas sobre el análisis sintáctico en COOL](https://groups.google.com/forum/#!topic/ucb.class.cs164/vCfBi-kkieg)
+
+&#x1F535; Completado parcialmente.
 
 
 ## PA3J: Parsing
