@@ -1,8 +1,9 @@
 # Se excluye la documentación:
 *.pdf
 
-# Se excluyen los ejecutables de MIPS:
+# Se excluyen los ejecutables de JAVA y MIPS:
+*.class
 *.s
 
 # Se excluye el directorio de apuntes:
-./notas/*
+notas/*
