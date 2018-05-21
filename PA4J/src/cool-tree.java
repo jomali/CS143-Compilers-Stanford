@@ -34,9 +34,11 @@ abstract class Class_ extends TreeNode {
 // ////////////////////////////////////////////////////////////////////////////
 // Classes
 
-/** Defines list phylum Classes
-    <p>
-    See <a href="ListNode.html">ListNode</a> for full documentation. */
+/**
+ * Defines list phylum Classes
+ * <p>
+ * See <a href="ListNode.html">ListNode</a> for full documentation.
+ */
 class Classes extends ListNode {
     public final static Class elementClass = Class_.class;
 
@@ -63,6 +65,53 @@ class Classes extends ListNode {
     public TreeNode copy() {
         return new Classes(lineNumber, copyElements());
     }
+
+	public void semant(ClassTable classTable) {
+		// TODO
+	}
+
+	// XXX
+	/**
+	 * Comprueba si alguna de las clases que conforman el objeto tiene el
+	 * nombre pasado como parámetro.
+	 *
+	 * @param className nombre de la clase que se consulta
+	 * @return verdadero si alguna de las clases tiene el nombre "className"
+	 *		pasado como parámetro, falso en caso contrario
+	 */
+	public boolean containsClass(AbstractSymbol className) {
+		boolean result = false;
+		for (int i = 0; i < this.getLength(); i++) {
+			class_c c = (class_c)this.getNth(i);
+			if (c.getName().equals(className)) {
+				result = true;
+				break;
+			}
+		}
+		return result;
+	}
+
+	// XXX
+	/**
+	 * Comprueba si cualesquiera de las clases que conforman el objeto tiene
+	 * definido un método con el nombre pasado como parámetro.
+	 *
+	 * @param methodName nombre del método que se consulta
+	 * @return verdadero si cualesquiera de las clases del objeto contiene un
+	 *		método con nombre "methodName", falso en caso contrario
+	 */
+	public boolean containsMethod(AbstractSymbol methodName) {
+		boolean result = false;
+		for (int i = 0; i < this.getLength(); i++) {
+			class_c c = (class_c)this.getNth(i);
+			if (c.containsMethod(methodName)) {
+				result = true;
+				break;
+			}
+		}
+		return result;
+	}
+
 }
 
 // ////////////////////////////////////////////////////////////////////////////
@@ -70,12 +119,22 @@ class Classes extends ListNode {
 
 /** Defines simple phylum Feature */
 abstract class Feature extends TreeNode {
+    protected AbstractSymbol name;
 
-    protected Feature(int lineNumber) {
+	/**
+	 * Constructor. Creates "Feature" AST node.
+	 *
+	 * @param lineNumber the line in the source file from which this node came
+	 * @param featureName initial value for name
+	 */
+    protected Feature(int lineNumber, AbstractSymbol featureName) {
         super(lineNumber);
+		name = featureName;
     }
 
     public abstract void dump_with_types(PrintStream out, int n);
+
+	public AbstractSymbol getName() { return name; }
 
 }
 
@@ -182,8 +241,14 @@ abstract class Expression extends TreeNode {
 
     public AbstractSymbol get_type() { return type; }
 
+	// XXX
 	/**
 	 * Lleva a cabo el análisis semántico de la expresión.
+	 *
+	 * @param classTable contenedor de métodos para la gestión y la impresión
+	 *		de mensajes de error
+	 * @param c representación AST de una clase
+
 	 */
 	public abstract void semant(ClassTable classTable, class_c c);
 
@@ -200,25 +265,30 @@ abstract class Expression extends TreeNode {
 class Expressions extends ListNode {
     public final static Class elementClass = Expression.class;
 
+	/** Constructor. Creates an empty "Expressions" list */
+	public Expressions(int lineNumber) {
+		super(lineNumber);
+	}
+
+	protected Expressions(int lineNumber, Vector elements) {
+		super(lineNumber, elements);
+	}
+
+	/** Appends "Expression" element to this list */
+	public Expressions appendElement(TreeNode elem) {
+		addElement(elem);
+		return this;
+	}
+
+    public TreeNode copy() {
+        return new Expressions(lineNumber, copyElements());
+    }
+
     /** Returns class of this lists's elements */
     public Class getElementClass() {
         return elementClass;
     }
-    protected Expressions(int lineNumber, Vector elements) {
-        super(lineNumber, elements);
-    }
-    /** Creates an empty "Expressions" list */
-    public Expressions(int lineNumber) {
-        super(lineNumber);
-    }
-    /** Appends "Expression" element to this list */
-    public Expressions appendElement(TreeNode elem) {
-        addElement(elem);
-        return this;
-    }
-    public TreeNode copy() {
-        return new Expressions(lineNumber, copyElements());
-    }
+
 }
 
 // ////////////////////////////////////////////////////////////////////////////
@@ -277,13 +347,15 @@ class Cases extends ListNode {
     <p>
     See <a href="TreeNode.html">TreeNode</a> for full documentation. */
 class programc extends Program {
+
     protected Classes classes;
 
-    /** Creates "programc" AST node.
-      *
-      * @param lineNumber the line in the source file from which this node came.
-      * @param a0 initial value for classes
-      */
+    /**
+	 * Constructor. Creates "programc" AST node.
+     *
+  	 * @param lineNumber the line in the source file from which this node came.
+     * @param a0 initial value for classes
+     */
     public programc(int lineNumber, Classes a1) {
         super(lineNumber);
         classes = a1;
@@ -327,23 +399,30 @@ class programc extends Program {
      */
     public void semant() {
 		if (Flags.semant_debug) {
-			System.out.println("Analizando programa...");
+			System.out.println("DEBUG. Análisis semántico");
 		}
 
 		// ClassTable constructor may do some semantic analysis:
-		// Se encarga de vereficar la herencia entre clases y objetos
 		ClassTable classTable = new ClassTable(classes);
 
-		// TODO - Se verifican el resto de clases:
+		// XXX - Inicio del análisis semántico
+		classes.semant(classTable);
 
-		// TODO - Si no hay clase principal; error en el análisis
-
-		// TODO - Si no hay método principal; error en el análisis
+		// Se verifica que el programa incluya clase y método "main"
+		if (!classes.containsClass(TreeConstants.Main)) {
+			classTable.semantError()
+				.println("Class Main is not defined.");
+		}
+		if (!classes.containsMethod(TreeConstants.main_meth)) {
+			classTable.semantError()
+				.println("Method main is not defined.");
+		}
+		// XXX - Final del análisis semántico
 
 		// En caso de producirse errores durante el análisis semántico:
 		if (classTable.errors()) {
-		    System.err.println("Compilation halted due to static semantic " +
-				"errors.");
+		    System.err.println("Compilation halted due to static semantic "
+				+ "errors.");
 		    System.exit(1);
 		}
     }
@@ -352,9 +431,11 @@ class programc extends Program {
 // ////////////////////////////////////////////////////////////////////////////
 // class_c
 
-/** Defines AST constructor 'class_c'.
-    <p>
-    See <a href="TreeNode.html">TreeNode</a> for full documentation. */
+/**
+ * Defines AST constructor 'class_c'.
+ * <p>
+ * See <a href="TreeNode.html">TreeNode</a> for full documentation.
+ */
 class class_c extends Class_ {
 
     protected AbstractSymbol name;
@@ -363,14 +444,14 @@ class class_c extends Class_ {
     protected AbstractSymbol filename;
 
     /**
-	  * Creates "class_c" AST node.
-      *
-      * @param lineNumber the line in the source file from which this node came.
-      * @param a0 initial value for name
-      * @param a1 initial value for parent
-      * @param a2 initial value for features
-      * @param a3 initial value for filename
-      */
+	 * Constructor. Creates "class_c" AST node.
+     *
+     * @param lineNumber the line in the source file from which this node came.
+     * @param a0 initial value for name
+     * @param a1 initial value for parent
+     * @param a2 initial value for features
+     * @param a3 initial value for filename
+     */
     public class_c(int lineNumber, AbstractSymbol a1, AbstractSymbol a2,
 		Features a3, AbstractSymbol a4) {
         super(lineNumber);
@@ -412,6 +493,26 @@ class class_c extends Class_ {
         out.println(Utilities.pad(n + 2) + ")");
     }
 
+	/**
+	 * Comprueba si la clase tiene definido un método con el nombre pasado
+	 * como parámetro.
+	 *
+	 * @param methodName nombre del método que se consulta
+	 * @return verdadero si la clase contiene un método con nombre
+	 *		"methodName", falso en caso contrario
+	 */
+	public boolean containsMethod(AbstractSymbol methodName) {
+		boolean result = false;
+		for (int i = 0; i < features.getLength(); i++) {
+			Feature f = (Feature)features.getNth(i);
+			if (f instanceof method && f.getName().equals(methodName)) {
+				result = true;
+				break;
+			}
+		}
+		return result;
+	}
+
 }
 
 // ////////////////////////////////////////////////////////////////////////////
@@ -422,7 +523,6 @@ class class_c extends Class_ {
     See <a href="TreeNode.html">TreeNode</a> for full documentation. */
 class method extends Feature {
 
-    protected AbstractSymbol name;
     protected Formals formals;
     protected AbstractSymbol return_type;
     protected Expression expr;
@@ -430,15 +530,14 @@ class method extends Feature {
     /** Creates "method" AST node.
       *
       * @param lineNumber the line in the source file from which this node came.
-      * @param a0 initial value for name
-      * @param a1 initial value for formals
-      * @param a2 initial value for return_type
-      * @param a3 initial value for expr
+      * @param a1 initial value for name
+      * @param a2 initial value for formals
+      * @param a3 initial value for return_type
+      * @param a4 initial value for expr
       */
     public method(int lineNumber, AbstractSymbol a1, Formals a2,
 		AbstractSymbol a3, Expression a4) {
-        super(lineNumber);
-        name = a1;
+        super(lineNumber, a1);
         formals = a2;
         return_type = a3;
         expr = a4;
@@ -478,7 +577,6 @@ class method extends Feature {
     See <a href="TreeNode.html">TreeNode</a> for full documentation. */
 class attr extends Feature {
 
-    protected AbstractSymbol name;
     protected AbstractSymbol type_decl;
     protected Expression init;
 
@@ -486,14 +584,13 @@ class attr extends Feature {
  	  * Creates "attr" AST node.
       *
       * @param lineNumber the line in the source file from which this node came.
-      * @param a0 initial value for name
-      * @param a1 initial value for type_decl
-      * @param a2 initial value for init
+      * @param a1 initial value for name
+      * @param a2 initial value for type_decl
+      * @param a3 initial value for init
       */
     public attr(int lineNumber, AbstractSymbol a1, AbstractSymbol a2,
 		Expression a3) {
-        super(lineNumber);
-        name = a1;
+        super(lineNumber, a1);
         type_decl = a2;
         init = a3;
     }

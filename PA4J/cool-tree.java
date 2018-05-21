@@ -38,8 +38,6 @@ class Classes extends ListNode {
     }
 }
 
-
-/** Defines simple phylum Feature */
 abstract class Feature extends TreeNode {
 
     public abstract void semant(SymbolTable objectTable,
@@ -51,26 +49,23 @@ abstract class Feature extends TreeNode {
 				    SymbolTable methodTable,
 				    ClassTable classTable,
 				    class_c c);
-    public abstract AbstractSymbol getName();
+
 }
 
 class Features extends ListNode {
 
-    /**
-     * Semantically analyze all features in list
-     */
     public void semant(SymbolTable objectTable,
 		       SymbolTable methodTable,
 		       ClassTable classTable,
 		       class_c c) {
 
-	for(Enumeration<Feature> e=getElements();
-	    e.hasMoreElements();) {
-	    (e.nextElement()).semant(objectTable,
-				     methodTable,
-				     classTable,
-				     c);
-	}
+		for(Enumeration<Feature> e=getElements();
+		    e.hasMoreElements();) {
+		    (e.nextElement()).semant(objectTable,
+					     methodTable,
+					     classTable,
+					     c);
+		}
     }
 
     /**
@@ -315,60 +310,7 @@ class programc extends Program {
 
 }
 
-
-/** Defines AST constructor 'class_c'.
-    <p>
-    See <a href="TreeNode.html">TreeNode</a> for full documentation. */
 class class_c extends Class_ {
-    protected AbstractSymbol name;
-    protected AbstractSymbol parent;
-    protected Features features;
-    protected AbstractSymbol filename;
-    /** Creates "class_c" AST node.
-      *
-      * @param lineNumber the line in the source file from which this node came.
-      * @param a0 initial value for name
-      * @param a1 initial value for parent
-      * @param a2 initial value for features
-      * @param a3 initial value for filename
-      */
-    public class_c(int lineNumber, AbstractSymbol a1, AbstractSymbol a2, Features a3, AbstractSymbol a4) {
-        super(lineNumber);
-        name = a1;
-        parent = a2;
-        features = a3;
-        filename = a4;
-    }
-    public TreeNode copy() {
-        return new class_c(lineNumber, copy_AbstractSymbol(name), copy_AbstractSymbol(parent), (Features)features.copy(), copy_AbstractSymbol(filename));
-    }
-    public void dump(PrintStream out, int n) {
-        out.print(Utilities.pad(n) + "class_c\n");
-        dump_AbstractSymbol(out, n+2, name);
-        dump_AbstractSymbol(out, n+2, parent);
-        features.dump(out, n+2);
-        dump_AbstractSymbol(out, n+2, filename);
-    }
-
-
-    public AbstractSymbol getFilename() { return filename; }
-    public AbstractSymbol getName()     { return name; }
-    public AbstractSymbol getParent()   { return parent; }
-
-    public void dump_with_types(PrintStream out, int n) {
-        dump_line(out, n);
-        out.println(Utilities.pad(n) + "_class");
-        dump_AbstractSymbol(out, n + 2, name);
-        dump_AbstractSymbol(out, n + 2, parent);
-        out.print(Utilities.pad(n + 2) + "\"");
-        Utilities.printEscapedString(out, filename.getString());
-        out.println("\"\n" + Utilities.pad(n + 2) + "(");
-        for (Enumeration e = features.getElements(); e.hasMoreElements();) {
-	    ((Feature)e.nextElement()).dump_with_types(out, n + 2);
-        }
-        out.println(Utilities.pad(n + 2) + ")");
-    }
-
 
     /**
      * Collect all inherited features in current class's
@@ -400,7 +342,6 @@ class class_c extends Class_ {
 	}
     }
 
-
     /**
      * Log all features in current class into
      * Symbol table scopes
@@ -415,7 +356,6 @@ class class_c extends Class_ {
 			     classTable,
 			     c);
     }
-
 
     /**
      * Perform semantic analysis on current class
@@ -475,68 +415,10 @@ class class_c extends Class_ {
 	return features.getFeature(featureName);
     }
 
-    public boolean containsMethod(AbstractSymbol symbol) {
-
-	for(Enumeration<Feature> e=features.getElements();
-	    e.hasMoreElements();) {
-
-	    Feature f = e.nextElement();
-	    if(f instanceof method &&
-	       f.getName().equals(symbol)) {
-		return true;
-	    }
-	}
-
-	return false;
-    }
 }
 
 
-/** Defines AST constructor 'method'.
-    <p>
-    See <a href="TreeNode.html">TreeNode</a> for full documentation. */
 class method extends Feature {
-    protected AbstractSymbol name;
-    protected Formals formals;
-    protected AbstractSymbol return_type;
-    protected Expression expr;
-    /** Creates "method" AST node.
-      *
-      * @param lineNumber the line in the source file from which this node came.
-      * @param a0 initial value for name
-      * @param a1 initial value for formals
-      * @param a2 initial value for return_type
-      * @param a3 initial value for expr
-      */
-    public method(int lineNumber, AbstractSymbol a1, Formals a2, AbstractSymbol a3, Expression a4) {
-        super(lineNumber);
-        name = a1;
-        formals = a2;
-        return_type = a3;
-        expr = a4;
-    }
-    public TreeNode copy() {
-        return new method(lineNumber, copy_AbstractSymbol(name), (Formals)formals.copy(), copy_AbstractSymbol(return_type), (Expression)expr.copy());
-    }
-    public void dump(PrintStream out, int n) {
-        out.print(Utilities.pad(n) + "method\n");
-        dump_AbstractSymbol(out, n+2, name);
-        formals.dump(out, n+2);
-        dump_AbstractSymbol(out, n+2, return_type);
-        expr.dump(out, n+2);
-    }
-
-
-    public void dump_with_types(PrintStream out, int n) {
-        dump_line(out, n);
-        out.println(Utilities.pad(n) + "_method");
-        dump_AbstractSymbol(out, n + 2, name);
-        for (Enumeration e = formals.getElements(); e.hasMoreElements();) {
-	    ((Formal)e.nextElement()).dump_with_types(out, n + 2);
-        }
-        dump_AbstractSymbol(out, n + 2, return_type);
-	expr.dump_with_types(out, n + 2);
-    }
 
     public void semant(SymbolTable objectTable,
 		       SymbolTable methodTable,
@@ -660,15 +542,6 @@ class method extends Feature {
 	}
     }
 
-
-    /**
-     * Get name of feature
-     */
-    public AbstractSymbol getName() {
-	return this.name;
-    }
-
-
     /**
      * Method for comparing passed arguments of
      * dispatch to declared arguments
@@ -687,10 +560,6 @@ class method extends Feature {
     }
 }
 
-
-/** Defines AST constructor 'attr'.
-    <p>
-    See <a href="TreeNode.html">TreeNode</a> for full documentation. */
 class attr extends Feature {
     protected AbstractSymbol name;
     protected AbstractSymbol type_decl;
