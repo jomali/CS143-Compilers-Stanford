@@ -1,0 +1,91 @@
+#name "examples/t2.cl"
+#9 CLASS
+#9 TYPEID Main
+#9 INHERITS
+#9 TYPEID IO
+#9 '{'
+#11 OBJECTID read_number
+#11 '('
+#11 ')'
+#11 ':'
+#11 TYPEID Int
+#11 '{'
+#12 '{'
+#12 OBJECTID out_string
+#12 '('
+#12 STR_CONST "Introduce un n\303\272mero > "
+#12 ')'
+#12 ';'
+#13 OBJECTID in_int
+#13 '('
+#13 ')'
+#13 ';'
+#13 '}'
+#14 '}'
+#14 ';'
+#16 OBJECTID main
+#16 '('
+#16 ')'
+#16 ':'
+#16 TYPEID Object
+#16 '{'
+#17 LET
+#17 OBJECTID input
+#17 ':'
+#17 TYPEID Int
+#17 ASSIGN
+#17 OBJECTID read_number
+#17 '('
+#17 ')'
+#17 ','
+#18 OBJECTID i
+#18 ':'
+#18 TYPEID Int
+#18 ASSIGN
+#18 INT_CONST 0
+#18 IN
+#19 WHILE
+#19 '('
+#19 OBJECTID i
+#19 '<'
+#19 OBJECTID input
+#19 ')'
+#19 LOOP
+#20 '{'
+#20 OBJECTID i
+#20 ASSIGN
+#20 OBJECTID i
+#20 '+'
+#20 INT_CONST 1
+#20 ';'
+#21 OBJECTID out_string
+#21 '('
+#21 STR_CONST "Iteraci\303\263n "
+#21 ')'
+#21 ';'
+#22 OBJECTID out_int
+#22 '('
+#22 OBJECTID i
+#22 ')'
+#22 ';'
+#23 OBJECTID out_string
+#23 '('
+#23 STR_CONST " de "
+#23 ')'
+#23 ';'
+#24 OBJECTID out_int
+#24 '('
+#24 OBJECTID input
+#24 ')'
+#24 ';'
+#25 OBJECTID out_string
+#25 '('
+#25 STR_CONST ".\n"
+#25 ')'
+#25 ';'
+#25 '}'
+#26 POOL
+#27 '}'
+#27 ';'
+#29 '}'
+#29 ';'

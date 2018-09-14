@@ -4,7 +4,7 @@ _program
   _class
     C
     Object
-    "good.cl"
+    "examples/good.cl"
     (
     #2
     _attr
@@ -60,7 +60,7 @@ _program
   _class
     Main
     Object
-    "good.cl"
+    "examples/good.cl"
     (
     #14
     _method

@@ -1,0 +1,170 @@
+#29
+_program
+  #29
+  _class
+    Main
+    IO
+    "examples/t2.cl"
+    (
+    #16
+    _method
+      read_number
+      Int
+      #14
+      _block
+        #12
+        _dispatch
+          #12
+          _object
+            self
+          : _no_type
+          out_string
+          (
+          #12
+          _string
+            "Introduce un n\303\272mero > "
+          : _no_type
+          )
+        : _no_type
+        #13
+        _dispatch
+          #13
+          _object
+            self
+          : _no_type
+          in_int
+          (
+          )
+        : _no_type
+      : _no_type
+    #29
+    _method
+      main
+      Object
+      #27
+      _let
+        input
+        Int
+        #17
+        _dispatch
+          #17
+          _object
+            self
+          : _no_type
+          read_number
+          (
+          )
+        : _no_type
+        #27
+        _let
+          i
+          Int
+          #18
+          _int
+            0
+          : _no_type
+          #27
+          _loop
+            #19
+            _lt
+              #19
+              _object
+                i
+              : _no_type
+              #19
+              _object
+                input
+              : _no_type
+            : _no_type
+            #26
+            _block
+              #20
+              _assign
+                i
+                #20
+                _plus
+                  #20
+                  _object
+                    i
+                  : _no_type
+                  #20
+                  _int
+                    1
+                  : _no_type
+                : _no_type
+              : _no_type
+              #21
+              _dispatch
+                #21
+                _object
+                  self
+                : _no_type
+                out_string
+                (
+                #21
+                _string
+                  "Iteraci\303\263n "
+                : _no_type
+                )
+              : _no_type
+              #22
+              _dispatch
+                #22
+                _object
+                  self
+                : _no_type
+                out_int
+                (
+                #22
+                _object
+                  i
+                : _no_type
+                )
+              : _no_type
+              #23
+              _dispatch
+                #23
+                _object
+                  self
+                : _no_type
+                out_string
+                (
+                #23
+                _string
+                  " de "
+                : _no_type
+                )
+              : _no_type
+              #24
+              _dispatch
+                #24
+                _object
+                  self
+                : _no_type
+                out_int
+                (
+                #24
+                _object
+                  input
+                : _no_type
+                )
+              : _no_type
+              #25
+              _dispatch
+                #25
+                _object
+                  self
+                : _no_type
+                out_string
+                (
+                #25
+                _string
+                  ".\n"
+                : _no_type
+                )
+              : _no_type
+            : _no_type
+          : _no_type
+        : _no_type
+      : _no_type
+    )

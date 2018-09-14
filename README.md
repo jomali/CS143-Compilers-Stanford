@@ -12,6 +12,8 @@ Más información:
 
 ## PA1: Ejemplos de programación en COOL
 
+&#x1F535; Completado.
+
 Además de los programas de ejemplo del propio curso de sobre compiladores de la Universidad de Stanford (disponibles en `~/examples/`) y los ejemplos desarrollados por [Domingo Gómez Pérez](http://personales.unican.es/gomezd/cv/index.html), de la Universidad de Cantabria (disponibles en `~/examples-2/`), se ha desarrollado el siguiente conjunto de programas de prueba en COOL:
 
 * **~/src/p1_1.cl**: Programa "Hola Mundo".
@@ -22,10 +24,10 @@ Además de los programas de ejemplo del propio curso de sobre compiladores de la
 * **~/src/p1_5.cl**: Programa con un bucle `if`.
 * **~/src/p1_6.cl**: Programa con operaciones aritméticas.
 
-&#x1F535; Completado.
-
 
 ## PA2J: Análisis léxico
+
+&#x1F535; Completado.
 
 El **análisis léxico** es la primera fase de un compilador. Un analizador léxico, también llamado *scanner*, se encarga de dividir el código fuente en una serie de *tokens* y transmitir los datos al *parser* cuando éste lo necesita. Para desarrollar este apartado se utiliza una herramienta generadora de analizadores léxicos **Flex/JLex**. Flex genera, a partir de un fichero de reglas, la implementación en C++ de un autámata finito que reconoce las expresiones regulares espeficadas en el fichero de reglas. JLex hace lo propio para Java.
 
@@ -35,12 +37,17 @@ Más información:
 * [JLex (un resumen)](http://pages.cs.wisc.edu/~fischer/cs536.s05/course.hold/html/NOTES/2a.JLEX.html)
 * [Algunas dudas sobre análisis sintáctico en COOL](https://groups.google.com/forum/#!topic/ucb.class.cs164/vCfBi-kkieg)
 
-&#x1F535; Completado parcialmente.
-
 
 ## PA3J: Parsing
 
-El **parsing**, o **análisis sintáctica**, es la segunda fase de un compilador. Un *parser* toma como entrada el producto de un analizador léxico en forma de flujo de *tokens* y analiza el código fuente de un programa para detectar cualquier posible error de escritura. Como salida se produce un árbol de sintaxis abstracto (*abstract syntax tree*, o AST).
+El **parsing**, o **análisis sintáctico**, es la segunda fase de un compilador. Un *parser* toma como entrada el producto de un analizador léxico en forma de flujo de *tokens* y analiza el código fuente de un programa para detectar cualquier posible error de escritura. Como salida se produce un árbol de sintaxis abstracto (*abstract syntax tree*, o AST).
+
+Más información:
+
+* [CUP User's Manual](http://www2.cs.tum.edu/projects/cup/docs.php)
+* [Learning CUP by example](http://www2.cs.tum.edu/projects/cup/examples.php)
+* [A Tour of the Cool Support Code](https://web.stanford.edu/class/archive/cs/cs143/cs143.1112/materials/handouts/cool-tour.pdf)
+* [ Class TreeNode javadoc](https://web.stanford.edu/class/archive/cs/cs143/cs143.1112/javadoc/cool_ast/)
 
 &#x1F534; Pendiente.
 

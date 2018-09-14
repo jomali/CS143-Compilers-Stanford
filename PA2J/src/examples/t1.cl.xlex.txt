@@ -1,0 +1,20 @@
+#name "examples/t1.cl"
+#10 CLASS
+#10 TYPEID Main
+#10 INHERITS
+#10 TYPEID IO
+#10 '{'
+#11 OBJECTID main
+#11 '('
+#11 ')'
+#11 ':'
+#11 TYPEID Object
+#11 '{'
+#12 OBJECTID out_string
+#12 '('
+#12 STR_CONST "Hello, World.\n"
+#12 ')'
+#13 '}'
+#13 ';'
+#14 '}'
+#14 ';'
